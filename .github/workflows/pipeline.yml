@@ -13,15 +13,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: HTML lint
+      - name: Lint HTML
         run: npx --yes htmlhint index.html
 
-      - name: Build Docker image
-	if: always()
+      - name: Build image
+        if: always()
         run: docker build -t my-site:ci .
 
       - name: Smoke test container
-	if: always()
+        if: always()
         run: |
           docker run -d --name test-site -p 8080:80 my-site:ci
           sleep 3
